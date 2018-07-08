@@ -1,9 +1,7 @@
 package com.julianolarte.netflix.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +12,9 @@ public class Movie {
     private String language;
     private String year;
     private int durationMin;
+    private Collection<FavoriteMovie> favoriteMoviesById;
+    private Gender genderByGender;
+    private Collection<ProfileMovie> profileMoviesById;
 
     @Id
     @Column(name = "id")
@@ -92,5 +93,33 @@ public class Movie {
     public int hashCode() {
 
         return Objects.hash(id, name, description, language, year, durationMin);
+    }
+
+    @OneToMany(mappedBy = "movieByMovie")
+    public Collection<FavoriteMovie> getFavoriteMoviesById() {
+        return favoriteMoviesById;
+    }
+
+    public void setFavoriteMoviesById(Collection<FavoriteMovie> favoriteMoviesById) {
+        this.favoriteMoviesById = favoriteMoviesById;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "gender", referencedColumnName = "id", nullable = false)
+    public Gender getGenderByGender() {
+        return genderByGender;
+    }
+
+    public void setGenderByGender(Gender genderByGender) {
+        this.genderByGender = genderByGender;
+    }
+
+    @OneToMany(mappedBy = "movieByMovie")
+    public Collection<ProfileMovie> getProfileMoviesById() {
+        return profileMoviesById;
+    }
+
+    public void setProfileMoviesById(Collection<ProfileMovie> profileMoviesById) {
+        this.profileMoviesById = profileMoviesById;
     }
 }

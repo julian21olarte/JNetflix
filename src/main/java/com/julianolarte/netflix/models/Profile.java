@@ -1,15 +1,13 @@
 package com.julianolarte.netflix.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Profile {
     private int id;
     private String name;
+    private User userByUser;
 
     @Id
     @Column(name = "id")
@@ -44,5 +42,15 @@ public class Profile {
     public int hashCode() {
 
         return Objects.hash(id, name);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
+    public User getUserByUser() {
+        return userByUser;
+    }
+
+    public void setUserByUser(User userByUser) {
+        this.userByUser = userByUser;
     }
 }

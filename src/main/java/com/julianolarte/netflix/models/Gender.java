@@ -1,15 +1,14 @@
 package com.julianolarte.netflix.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Gender {
     private int id;
     private String description;
+    //private Collection<Movie> moviesById;
 
     @Id
     @Column(name = "id")
@@ -45,4 +44,13 @@ public class Gender {
 
         return Objects.hash(id, description);
     }
+
+    /*@OneToMany(mappedBy = "genderByGender")
+    public Collection<Movie> getMoviesById() {
+        return moviesById;
+    }
+
+    public void setMoviesById(Collection<Movie> moviesById) {
+        this.moviesById = moviesById;
+    }*/
 }

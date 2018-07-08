@@ -9,6 +9,8 @@ import java.util.Objects;
 public class ProfileMovie {
     private int id;
     private Date watchDate;
+    private User userByUser;
+    private Movie movieByMovie;
 
     @Id
     @Column(name = "id")
@@ -43,5 +45,25 @@ public class ProfileMovie {
     public int hashCode() {
 
         return Objects.hash(id, watchDate);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
+    public User getUserByUser() {
+        return userByUser;
+    }
+
+    public void setUserByUser(User userByUser) {
+        this.userByUser = userByUser;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "movie", referencedColumnName = "id", nullable = false)
+    public Movie getMovieByMovie() {
+        return movieByMovie;
+    }
+
+    public void setMovieByMovie(Movie movieByMovie) {
+        this.movieByMovie = movieByMovie;
     }
 }

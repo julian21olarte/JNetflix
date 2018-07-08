@@ -1,5 +1,6 @@
 package com.julianolarte.netflix.repositories;
 
+import com.julianolarte.netflix.models.Gender;
 import com.julianolarte.netflix.models.Movie;
 import org.springframework.data.repository.CrudRepository;
 
@@ -16,6 +17,9 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
      * @return movies by year order by name
      */
     Iterable<Movie> findByYearOrderByName(String year);
+
+
+    Iterable<Movie> findByGenderByGender(Gender gender);
 
 
     /**

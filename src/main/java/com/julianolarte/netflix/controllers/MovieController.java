@@ -1,13 +1,11 @@
 package com.julianolarte.netflix.controllers;
 
+import com.julianolarte.netflix.models.Gender;
 import com.julianolarte.netflix.models.Movie;
 import com.julianolarte.netflix.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MovieController {
@@ -26,8 +24,16 @@ public class MovieController {
     }
 
 
-    @RequestMapping(value = "movieByAño", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Movie> getByYear(@RequestBody String year) {
+    @RequestMapping(value = "/movieByYear", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Movie> getByYear(@RequestParam("year") String year) {
+        System.out.println(year);
         return this.movieRepository.findByYearOrderByName(year);
+    }
+
+    @RequestMapping(value = "/movieByGender", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Movie> getByGender(@RequestParam("gender") int genderId) {
+        Gender gender = new Gender();
+        gender.setId(genderId);
+        return this.movieRepository.findByGenderByGender(gender);
     }
 }
