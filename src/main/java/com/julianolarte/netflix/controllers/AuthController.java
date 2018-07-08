@@ -1,6 +1,6 @@
 package com.julianolarte.netflix.controllers;
 
-import com.julianolarte.netflix.models.Usuario;
+import com.julianolarte.netflix.models.User;
 import com.julianolarte.netflix.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,8 +16,8 @@ public class AuthController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Usuario login(@RequestBody Usuario userLogin) {
-        return this.userRepository.findByEmailAndClave(userLogin.getEmail(), userLogin.getClave());
+    public User login(@RequestBody User userLogin) {
+        return this.userRepository.findByEmailAndPassword(userLogin.getEmail(), userLogin.getPassword());
     }
 }
 

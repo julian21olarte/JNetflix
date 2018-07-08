@@ -1,26 +1,26 @@
 package com.julianolarte.netflix.repositories;
 
-import com.julianolarte.netflix.models.Pelicula;
+import com.julianolarte.netflix.models.Movie;
 import org.springframework.data.repository.CrudRepository;
 
-public interface MovieRepository extends CrudRepository<Pelicula, Long> {
+public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     /**
      * @return Last 10 movies order by year Desc
      */
-    Iterable<Pelicula> findTop10ByOrderByAnoDesc();
+    Iterable<Movie> findTop10ByOrderByYearDesc();
 
 
     /**
-     * @param ano
-     * @return movies oby year order by name
+     * @param year
+     * @return movies by year order by name
      */
-    Iterable<Pelicula> findByAnoOrderByNombre(String ano);
+    Iterable<Movie> findByYearOrderByName(String year);
 
 
     /**
-     * @param nombre
+     * @param name
      * @return movies by name
      */
-    Iterable<Pelicula> findByNombre(String nombre);
+    Iterable<Movie> findByName(String name);
 }

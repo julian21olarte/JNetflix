@@ -1,6 +1,6 @@
 package com.julianolarte.netflix.controllers;
 
-import com.julianolarte.netflix.models.Pelicula;
+import com.julianolarte.netflix.models.Movie;
 import com.julianolarte.netflix.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,18 +16,18 @@ public class MovieController {
     private MovieRepository movieRepository;
 
     @RequestMapping(value = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Pelicula> getMovies() {
+    public Iterable<Movie> getMovies() {
         return this.movieRepository.findAll();
     }
 
     @RequestMapping(value = "/movieLast10", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Pelicula> getLast10Movies() {
-        return this.movieRepository.findTop10ByOrderByAnoDesc();
+    public Iterable<Movie> getLast10Movies() {
+        return this.movieRepository.findTop10ByOrderByYearDesc();
     }
 
 
     @RequestMapping(value = "movieByAño", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Pelicula> getByYear(@RequestBody String year) {
-        return this.movieRepository.findByAnoOrderByNombre(year);
+    public Iterable<Movie> getByYear(@RequestBody String year) {
+        return this.movieRepository.findByYearOrderByName(year);
     }
 }

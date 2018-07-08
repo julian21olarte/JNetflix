@@ -4,13 +4,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-public class Usuariopelicula {
+public class Gender {
     private int id;
-    private Date fecha;
+    private String description;
 
     @Id
     @Column(name = "id")
@@ -23,27 +22,27 @@ public class Usuariopelicula {
     }
 
     @Basic
-    @Column(name = "fecha")
-    public Date getFecha() {
-        return fecha;
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Usuariopelicula that = (Usuariopelicula) o;
-        return id == that.id &&
-                Objects.equals(fecha, that.fecha);
+        Gender gender = (Gender) o;
+        return id == gender.id &&
+                Objects.equals(description, gender.description);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, fecha);
+        return Objects.hash(id, description);
     }
 }

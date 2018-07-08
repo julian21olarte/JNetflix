@@ -1,14 +1,14 @@
 package com.julianolarte.netflix.repositories;
 
-import com.julianolarte.netflix.models.Usuario;
+import com.julianolarte.netflix.models.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<Usuario, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
      * @param email
-     * @param clave
+     * @param password
      * @return Usuario
      */
-    Usuario findByEmailAndClave(String email, String clave);
+    User findByEmailAndPassword(String email, String password);
 }
