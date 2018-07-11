@@ -17,13 +17,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.transaction.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
-@SpringBootTest
 @Transactional
+@SpringBootTest
+@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
 public class AuthControllerTest {
 
     @Autowired
@@ -51,15 +50,24 @@ public class AuthControllerTest {
         user.setEmail("email@gmail.com");
         user.setPassword("12345");
 
+        // transform user object into json
         String jsonUser = this.objectMapper.writeValueAsString(user);
 
         this.mockMvc.perform(post("/login")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(jsonUser))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.email").value("email@gmail.com"));
+                .andExpect(jsonPath("$.email").value("email@gmail.com"))
+                .andExpect(jsonPath("$.password").value("12345"));
+    }
+
+
+    @Test
+    public void testLoginRouteWithoutUser() throws Exception {
+        this.mockMvc.perform(post("/login")
+            .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isBadRequest());
     }
 
 }
