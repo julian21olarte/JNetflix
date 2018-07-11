@@ -2,6 +2,7 @@ package com.julianolarte.netflix.controllers;
 
 import com.julianolarte.netflix.models.Gender;
 import com.julianolarte.netflix.models.Movie;
+import com.julianolarte.netflix.models.Profile;
 import com.julianolarte.netflix.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,5 +36,13 @@ public class MovieController {
         Gender gender = new Gender();
         gender.setId(genderId);
         return this.movieRepository.findByGenderByGender(gender);
+    }
+
+    @RequestMapping(value = "movieByProfile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Movie> getByProfile(@RequestParam("profile") int profileId) {
+        Profile profile = new Profile();
+        profile.setId(profileId);
+
+        return this.movieRepository.findByProfileMoviesById_ProfileByProfile(profile);
     }
 }

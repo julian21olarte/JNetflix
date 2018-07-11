@@ -14,9 +14,7 @@ public class User {
     private String email;
     private String password;
     private Date birthdate;
-    private Collection<FavoriteMovie> favoriteMoviesById;
     private Collection<Profile> profilesById;
-    private Collection<ProfileMovie> profileMoviesById;
 
     @Id
     @Column(name = "id")
@@ -76,15 +74,6 @@ public class User {
     }
 
     @OneToMany(mappedBy = "userByUser")
-    public Collection<FavoriteMovie> getFavoriteMoviesById() {
-        return favoriteMoviesById;
-    }
-
-    public void setFavoriteMoviesById(Collection<FavoriteMovie> favoriteMoviesById) {
-        this.favoriteMoviesById = favoriteMoviesById;
-    }
-
-    @OneToMany(mappedBy = "userByUser")
     @JsonManagedReference
     @JsonProperty(value = "profiles")
     public Collection<Profile> getProfilesById() {
@@ -93,14 +82,5 @@ public class User {
 
     public void setProfilesById(Collection<Profile> profilesById) {
         this.profilesById = profilesById;
-    }
-
-    @OneToMany(mappedBy = "userByUser")
-    public Collection<ProfileMovie> getProfileMoviesById() {
-        return profileMoviesById;
-    }
-
-    public void setProfileMoviesById(Collection<ProfileMovie> profileMoviesById) {
-        this.profileMoviesById = profileMoviesById;
     }
 }

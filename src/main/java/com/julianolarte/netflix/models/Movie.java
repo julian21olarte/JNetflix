@@ -1,5 +1,10 @@
 package com.julianolarte.netflix.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -97,6 +102,7 @@ public class Movie {
     }
 
     @OneToMany(mappedBy = "movieByMovie")
+    @JsonIgnore
     public Collection<FavoriteMovie> getFavoriteMoviesById() {
         return favoriteMoviesById;
     }
@@ -107,6 +113,7 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "gender", referencedColumnName = "id", nullable = false)
+    @JsonProperty(value = "gender")
     public Gender getGenderByGender() {
         return genderByGender;
     }
@@ -116,6 +123,8 @@ public class Movie {
     }
 
     @OneToMany(mappedBy = "movieByMovie")
+    @JsonManagedReference
+    @JsonIgnore
     public Collection<ProfileMovie> getProfileMoviesById() {
         return profileMoviesById;
     }

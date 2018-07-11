@@ -7,7 +7,7 @@ import java.util.Objects;
 @Table(name = "favorite_movie", schema = "jnetflix")
 public class FavoriteMovie {
     private int id;
-    private User userByUser;
+    private Profile profileByProfile;
     private Movie movieByMovie;
 
     @Id
@@ -35,13 +35,13 @@ public class FavoriteMovie {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
-    public User getUserByUser() {
-        return userByUser;
+    @JoinColumn(name = "profile", referencedColumnName = "id", nullable = false)
+    public Profile getProfileByProfile() {
+        return profileByProfile;
     }
 
-    public void setUserByUser(User userByUser) {
-        this.userByUser = userByUser;
+    public void setProfileByProfile(Profile profileByProfile) {
+        this.profileByProfile = profileByProfile;
     }
 
     @ManyToOne

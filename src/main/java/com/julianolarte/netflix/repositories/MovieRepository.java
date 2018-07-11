@@ -2,6 +2,7 @@ package com.julianolarte.netflix.repositories;
 
 import com.julianolarte.netflix.models.Gender;
 import com.julianolarte.netflix.models.Movie;
+import com.julianolarte.netflix.models.Profile;
 import org.springframework.data.repository.CrudRepository;
 
 public interface MovieRepository extends CrudRepository<Movie, Long> {
@@ -27,4 +28,6 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
      * @return movies by name
      */
     Iterable<Movie> findByName(String name);
+
+    Iterable<Movie> findByProfileMoviesById_ProfileByProfile(Profile profile);
 }

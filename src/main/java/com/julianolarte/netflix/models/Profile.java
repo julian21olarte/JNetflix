@@ -1,8 +1,10 @@
 package com.julianolarte.netflix.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -10,6 +12,8 @@ public class Profile {
     private int id;
     private String name;
     private User userByUser;
+    private Collection<FavoriteMovie> favoriteMoviesById;
+    private Collection<ProfileMovie> profileMoviesById;
 
     @Id
     @Column(name = "id")
@@ -55,5 +59,24 @@ public class Profile {
 
     public void setUserByUser(User userByUser) {
         this.userByUser = userByUser;
+    }
+
+    @OneToMany(mappedBy = "profileByProfile")
+    public Collection<FavoriteMovie> getFavoriteMoviesById() {
+        return favoriteMoviesById;
+    }
+
+    public void setFavoriteMoviesById(Collection<FavoriteMovie> favoriteMoviesById) {
+        this.favoriteMoviesById = favoriteMoviesById;
+    }
+
+    @OneToMany(mappedBy = "profileByProfile")
+    @JsonManagedReference
+    public Collection<ProfileMovie> getProfileMoviesById() {
+        return profileMoviesById;
+    }
+
+    public void setProfileMoviesById(Collection<ProfileMovie> profileMoviesById) {
+        this.profileMoviesById = profileMoviesById;
     }
 }
