@@ -9,7 +9,7 @@ import java.util.Objects;
 public class ProfileMovie {
     private int id;
     private Date watchDate;
-    private User userByUser;
+    private Profile profileByProfile;
     private Movie movieByMovie;
 
     @Id
@@ -48,13 +48,13 @@ public class ProfileMovie {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
-    public User getUserByUser() {
-        return userByUser;
+    @JoinColumn(name = "profile", referencedColumnName = "id", nullable = false)
+    public Profile getProfileByProfile() {
+        return profileByProfile;
     }
 
-    public void setUserByUser(User userByUser) {
-        this.userByUser = userByUser;
+    public void setProfileByProfile(Profile profileByProfile) {
+        this.profileByProfile = profileByProfile;
     }
 
     @ManyToOne
