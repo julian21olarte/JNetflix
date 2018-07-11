@@ -11,6 +11,7 @@ public class Gender {
     //private Collection<Movie> moviesById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;

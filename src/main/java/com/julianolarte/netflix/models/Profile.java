@@ -1,5 +1,7 @@
 package com.julianolarte.netflix.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -46,6 +48,7 @@ public class Profile {
 
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     public User getUserByUser() {
         return userByUser;
     }

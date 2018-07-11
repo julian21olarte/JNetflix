@@ -1,5 +1,8 @@
 package com.julianolarte.netflix.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -82,6 +85,8 @@ public class User {
     }
 
     @OneToMany(mappedBy = "userByUser")
+    @JsonManagedReference
+    @JsonProperty(value = "profiles")
     public Collection<Profile> getProfilesById() {
         return profilesById;
     }

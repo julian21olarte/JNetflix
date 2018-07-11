@@ -17,6 +17,7 @@ public class Movie {
     private Collection<ProfileMovie> profileMoviesById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;

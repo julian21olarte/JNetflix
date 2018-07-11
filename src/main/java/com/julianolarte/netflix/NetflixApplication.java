@@ -20,7 +20,8 @@ public class NetflixApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200")
+                //.allowedOrigins("http://localhost:4200")
+                .allowedOrigins("*")
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE")
                 .allowCredentials(true)
                 .maxAge(60 * 60 * 24);
