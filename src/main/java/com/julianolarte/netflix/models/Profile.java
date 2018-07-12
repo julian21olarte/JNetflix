@@ -16,6 +16,7 @@ public class Profile {
     private Collection<ProfileMovie> profileMoviesById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -52,7 +53,7 @@ public class Profile {
 
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "userByUser")
     public User getUserByUser() {
         return userByUser;
     }
@@ -71,7 +72,7 @@ public class Profile {
     }
 
     @OneToMany(mappedBy = "profileByProfile")
-    @JsonManagedReference
+    @JsonManagedReference(value = "profileByProfile")
     public Collection<ProfileMovie> getProfileMoviesById() {
         return profileMoviesById;
     }

@@ -54,10 +54,10 @@ public class AuthControllerTest {
         String jsonUser = this.objectMapper.writeValueAsString(user);
 
         this.mockMvc.perform(post("/login")
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(jsonUser))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.email").value("email@gmail.com"))
                 .andExpect(jsonPath("$.password").value("12345"));
     }
@@ -66,7 +66,7 @@ public class AuthControllerTest {
     @Test
     public void testLoginRouteWithoutUser() throws Exception {
         this.mockMvc.perform(post("/login")
-            .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
     }
 

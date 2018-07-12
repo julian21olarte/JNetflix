@@ -50,7 +50,7 @@ public class ProfileMovie {
     }
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "profileByProfile")
     @JoinColumn(name = "profile", referencedColumnName = "id", nullable = false)
     public Profile getProfileByProfile() {
         return profileByProfile;
@@ -61,7 +61,7 @@ public class ProfileMovie {
     }
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "movieByMovie")
     @JoinColumn(name = "movie", referencedColumnName = "id", nullable = false)
     public Movie getMovieByMovie() {
         return movieByMovie;

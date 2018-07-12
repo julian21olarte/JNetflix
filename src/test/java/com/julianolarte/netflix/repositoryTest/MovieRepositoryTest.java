@@ -1,9 +1,7 @@
 package com.julianolarte.netflix.repositoryTest;
 
-import com.julianolarte.netflix.models.Gender;
-import com.julianolarte.netflix.models.Movie;
-import com.julianolarte.netflix.repositories.GenderRepository;
-import com.julianolarte.netflix.repositories.MovieRepository;
+import com.julianolarte.netflix.models.*;
+import com.julianolarte.netflix.repositories.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +12,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.*;
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +27,34 @@ public class MovieRepositoryTest {
     @Autowired
     private GenderRepository genderRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ProfileRepository profileRepository;
+
+    @Autowired
+    private ProfileMovieRepository profileMovieRepository;
+
 
     @Before
     @Rollback(true)
     public void before() {
+
+        //save user
+        User user = new User();
+        user.setEmail("gmail@gamil.com");
+        user.setPassword("12345");
+        user.setBirthdate(new Date(23, 12, 2018));
+        this.userRepository.save(user);
+
+        System.out.println(user.getId());
+        //save profile
+        Profile profile = new Profile();
+        profile.setUserByUser(user);
+        profile.setName("profile test");
+        this.profileRepository.save(profile);
+
 
         //save one gender
         Gender gender = new Gender();
@@ -40,7 +63,9 @@ public class MovieRepositoryTest {
 
         // save 10 movies for test
         List<Movie> movieList = new ArrayList<>();
+        List<ProfileMovie> listProfileMovie = new ArrayList<>();
         Movie movie;
+        ProfileMovie profileMovie;
         for(int i = 0; i < 10; i++) {
             movie = new Movie();
             movie.setName("movie #" + i);
@@ -50,8 +75,14 @@ public class MovieRepositoryTest {
             movie.setGenderByGender(gender);
             movie.setYear("2018");
             movieList.add(movie);
+
+            profileMovie = new ProfileMovie();
+            profileMovie.setMovieByMovie(movie);
+            profileMovie.setProfileByProfile(profile);
+            listProfileMovie.add(profileMovie);
         }
         this.movieRepository.saveAll(movieList);
+        //this.profileMovieRepository.saveAll(listProfileMovie);
     }
 
 
@@ -86,5 +117,19 @@ public class MovieRepositoryTest {
             .isNotNull();
 
         Assert.assertTrue( ((List<Movie>)listMoviesByGender).size() >= 1 );
+    }
+
+
+    @Test
+    public void testFindByProfile() {
+        Profile profile = new Profile();
+        profile.setId(1);
+        Iterable<Movie> listMovieByProfile = this.movieRepository.findByProfileMoviesById_ProfileByProfile(profile);
+
+        assertThat(listMovieByProfile)
+                .isNotNull();
+
+        Assert.assertTrue( ((List<Movie>)listMovieByProfile).size() >= 1 );
+
     }
 }

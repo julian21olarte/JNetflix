@@ -29,5 +29,10 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
      */
     Iterable<Movie> findByName(String name);
 
+
+    /**
+     * @param profile
+     * @return movies by profile finded in profile_movie table
+     */
     Iterable<Movie> findByProfileMoviesById_ProfileByProfile(Profile profile);
 }

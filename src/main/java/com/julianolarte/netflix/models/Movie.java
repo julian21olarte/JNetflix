@@ -123,7 +123,7 @@ public class Movie {
     }
 
     @OneToMany(mappedBy = "movieByMovie")
-    @JsonManagedReference
+    @JsonManagedReference(value = "movieByMovie")
     @JsonIgnore
     public Collection<ProfileMovie> getProfileMoviesById() {
         return profileMoviesById;

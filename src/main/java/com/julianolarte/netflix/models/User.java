@@ -17,6 +17,7 @@ public class User {
     private Collection<Profile> profilesById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -74,7 +75,7 @@ public class User {
     }
 
     @OneToMany(mappedBy = "userByUser")
-    @JsonManagedReference
+    @JsonManagedReference(value = "userByUser")
     @JsonProperty(value = "profiles")
     public Collection<Profile> getProfilesById() {
         return profilesById;
