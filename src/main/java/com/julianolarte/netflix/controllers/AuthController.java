@@ -21,5 +21,10 @@ public class AuthController {
         System.out.println(userLogin.getPassword());
         return this.userRepository.findByEmailAndPassword(userLogin.getEmail(), userLogin.getPassword());
     }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public boolean logout() {
+        return true;
+    }
 }
 
