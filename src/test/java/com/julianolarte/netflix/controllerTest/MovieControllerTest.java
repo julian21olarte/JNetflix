@@ -1,9 +1,7 @@
 package com.julianolarte.netflix.controllerTest;
 
-import com.julianolarte.netflix.models.Gender;
-import com.julianolarte.netflix.models.Movie;
-import com.julianolarte.netflix.repositories.GenderRepository;
-import com.julianolarte.netflix.repositories.MovieRepository;
+import com.julianolarte.netflix.models.*;
+import com.julianolarte.netflix.repositories.*;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +39,31 @@ public class MovieControllerTest {
     @Autowired
     private GenderRepository genderRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ProfileRepository profileRepository;
+
+    @Autowired
+    private ProfileMovieRepository profileMovieRepository;
+
     @Before
     @Rollback(true)
     public void before() {
+
+        //save user
+        User user = new User();
+        user.setEmail("gmail@gamil.com");
+        user.setPassword("12345");
+        user.setBirthdate(new Date(23, 12, 2018));
+        this.userRepository.save(user);
+
+        //save profile
+        Profile profile = new Profile();
+        profile.setUserByUser(user);
+        profile.setName("profile test");
+        this.profileRepository.save(profile);
 
         //save one gender
         Gender gender = new Gender();
@@ -52,7 +73,10 @@ public class MovieControllerTest {
 
         // save 10 movies for test
         List<Movie> movieList = new ArrayList<>();
+        List<ProfileMovie> listProfileMovie = new ArrayList<>();
         Movie movie;
+        ProfileMovie profileMovie;
+        Date date = new Date(23, 12, 2018);
         for(int i = 0; i < 10; i++) {
             movie = new Movie();
             movie.setName("movie #" + i);
@@ -62,8 +86,15 @@ public class MovieControllerTest {
             movie.setGenderByGender(gender);
             movie.setYear("2018");
             movieList.add(movie);
+
+            profileMovie = new ProfileMovie();
+            profileMovie.setMovieByMovie(movie);
+            profileMovie.setProfileByProfile(profile);
+            profileMovie.setWatchDate(date);
+            listProfileMovie.add(profileMovie);
         }
         this.movieRepository.saveAll(movieList);
+        this.profileMovieRepository.saveAll(listProfileMovie);
     }
 
 
@@ -120,6 +151,24 @@ public class MovieControllerTest {
     @Test
     public void testMovieByGenderWithoutGenderParamRoute() throws Exception {
         this.mockMvc.perform(get("/movieByGender")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testMovieByProfileRoute() throws Exception {
+        this.mockMvc.perform(get("/movieByProfile")
+            .param("profile", "1")
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(Matchers.greaterThanOrEqualTo(1)));
+    }
+
+    @Test
+    public void testMovieByProfileWithoutProfileParamRoute() throws Exception {
+        this.mockMvc.perform(get("/movieByProfile")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
     }

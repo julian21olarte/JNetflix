@@ -66,6 +66,7 @@ public class MovieRepositoryTest {
         List<ProfileMovie> listProfileMovie = new ArrayList<>();
         Movie movie;
         ProfileMovie profileMovie;
+        Date date = new Date(23, 12, 2018);
         for(int i = 0; i < 10; i++) {
             movie = new Movie();
             movie.setName("movie #" + i);
@@ -79,10 +80,11 @@ public class MovieRepositoryTest {
             profileMovie = new ProfileMovie();
             profileMovie.setMovieByMovie(movie);
             profileMovie.setProfileByProfile(profile);
+            profileMovie.setWatchDate(date);
             listProfileMovie.add(profileMovie);
         }
         this.movieRepository.saveAll(movieList);
-        //this.profileMovieRepository.saveAll(listProfileMovie);
+        this.profileMovieRepository.saveAll(listProfileMovie);
     }
 
 
