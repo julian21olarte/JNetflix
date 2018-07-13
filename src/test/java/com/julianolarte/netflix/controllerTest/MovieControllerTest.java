@@ -141,7 +141,8 @@ public class MovieControllerTest {
     public void testMovieByGenderRoute() throws Exception {
         this.mockMvc.perform(get("/movieByGender")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .param("gender", "1"))
+            .param("gender", "1")
+            .param("profile", "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$").isArray())
@@ -169,6 +170,25 @@ public class MovieControllerTest {
     @Test
     public void testMovieByProfileWithoutProfileParamRoute() throws Exception {
         this.mockMvc.perform(get("/movieByProfile")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    public void TestMovieWithFavoriteByProfile() throws Exception {
+        this.mockMvc.perform(get("/movieWithFavorite")
+                .param("profile", "1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(Matchers.greaterThanOrEqualTo(1)));
+    }
+
+    @Test
+    public void TestMovieWithFavoriteByProfileWithoutProfileParam() throws Exception {
+        this.mockMvc.perform(get("/movieWithFavorite")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
     }

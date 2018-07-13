@@ -4,7 +4,7 @@ import com.julianolarte.netflix.models.FavoriteMovie;
 import com.julianolarte.netflix.models.Gender;
 import com.julianolarte.netflix.models.Movie;
 import com.julianolarte.netflix.models.Profile;
-import com.julianolarte.netflix.projections.FavoriteMovieProjection;
+import com.julianolarte.netflix.projections.MovieProjection;
 import com.julianolarte.netflix.repositories.FavoriteMovieRepository;
 import com.julianolarte.netflix.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/movieWithFavorite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<FavoriteMovieProjection> getMoviesWithFavorite(@RequestParam("profile") int profileId) {
+    public Iterable<MovieProjection> getMoviesWithFavorite(@RequestParam("profile") int profileId) {
         Profile profile = new Profile();
         profile.setId(profileId);
         return this.movieRepository.findAllWithFavoriteByProfile(profile);
@@ -50,14 +50,17 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/movieByGender", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Movie> getByGender(@RequestParam("gender") int genderId) {
+    public Iterable<MovieProjection> getByGender(@RequestParam("gender") int genderId, @RequestParam("profile") int profileId) {
         Gender gender = new Gender();
         gender.setId(genderId);
-        return this.movieRepository.findByGenderByGender(gender);
+
+        Profile profile = new Profile();
+        profile.setId(profileId);
+        return this.movieRepository.findByGenderByGender(gender, profile);
     }
 
     @RequestMapping(value = "/movieByProfile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Movie> getByProfile(@RequestParam("profile") int profileId) {
+    public Iterable<MovieProjection> getByProfile(@RequestParam("profile") int profileId) {
         Profile profile = new Profile();
         profile.setId(profileId);
 

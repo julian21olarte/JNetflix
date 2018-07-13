@@ -1,6 +1,7 @@
 package com.julianolarte.netflix.repositoryTest;
 
 import com.julianolarte.netflix.models.*;
+import com.julianolarte.netflix.projections.MovieProjection;
 import com.julianolarte.netflix.repositories.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -113,12 +114,14 @@ public class MovieRepositoryTest {
     public void testFindByGender() {
         Gender gender = new Gender();
         gender.setId(1);
-        Iterable<Movie> listMoviesByGender = this.movieRepository.findByGenderByGender(gender);
+        Profile profile = new Profile();
+        profile.setId(1);
+        Iterable<MovieProjection> listMoviesByGender = this.movieRepository.findByGenderByGender(gender, profile);
 
         assertThat(listMoviesByGender)
             .isNotNull();
 
-        Assert.assertTrue( ((List<Movie>)listMoviesByGender).size() >= 1 );
+        Assert.assertTrue( ((List<MovieProjection>)listMoviesByGender).size() >= 1 );
     }
 
 
@@ -126,12 +129,23 @@ public class MovieRepositoryTest {
     public void testFindByProfile() {
         Profile profile = new Profile();
         profile.setId(1);
-        Iterable<Movie> listMovieByProfile = this.movieRepository.findByProfileMoviesById_ProfileByProfile(profile);
+        Iterable<MovieProjection> listMovieByProfile = this.movieRepository.findByProfileMoviesById_ProfileByProfile(profile);
 
         assertThat(listMovieByProfile)
                 .isNotNull();
 
-        Assert.assertTrue( ((List<Movie>)listMovieByProfile).size() >= 1 );
+        Assert.assertTrue( ((List<MovieProjection>)listMovieByProfile).size() >= 1 );
+    }
 
+    @Test
+    public void testFindMovieWithFavoriteByProfile() {
+        Profile profile = new Profile();
+        profile.setId(1);
+        Iterable<MovieProjection> listMoviesByGender = this.movieRepository.findAllWithFavoriteByProfile(profile);
+
+        assertThat(listMoviesByGender)
+                .isNotNull();
+
+        Assert.assertTrue( ((List<MovieProjection>)listMoviesByGender).size() >= 1 );
     }
 }
