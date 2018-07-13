@@ -17,8 +17,6 @@ public class AuthController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User login(@RequestBody User userLogin) {
-        System.out.println(userLogin.getEmail());
-        System.out.println(userLogin.getPassword());
         return this.userRepository.findByEmailAndPassword(userLogin.getEmail(), userLogin.getPassword());
     }
 

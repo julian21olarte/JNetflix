@@ -64,6 +64,7 @@ public class Profile {
     }
 
     @OneToMany(mappedBy = "profileByProfile")
+    @JsonIgnore
     public Collection<FavoriteMovie> getFavoriteMoviesById() {
         return favoriteMoviesById;
     }

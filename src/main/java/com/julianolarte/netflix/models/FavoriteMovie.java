@@ -1,5 +1,7 @@
 package com.julianolarte.netflix.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -36,6 +38,7 @@ public class FavoriteMovie {
 
     @ManyToOne
     @JoinColumn(name = "profile", referencedColumnName = "id", nullable = false)
+    @JsonProperty(value = "profile")
     public Profile getProfileByProfile() {
         return profileByProfile;
     }
@@ -46,6 +49,7 @@ public class FavoriteMovie {
 
     @ManyToOne
     @JoinColumn(name = "movie", referencedColumnName = "id", nullable = false)
+    @JsonProperty(value = "movie")
     public Movie getMovieByMovie() {
         return movieByMovie;
     }
