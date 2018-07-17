@@ -17,6 +17,7 @@ public class Movie {
     private String language;
     private String year;
     private int durationMin;
+    private String movieId;
     private Collection<FavoriteMovie> favoriteMoviesById;
     private Gender genderByGender;
     private Collection<ProfileMovie> profileMoviesById;
@@ -73,6 +74,16 @@ public class Movie {
     }
 
     @Basic
+    @Column(name = "movie_id")
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
+    @Basic
     @Column(name = "duration_min")
     public int getDurationMin() {
         return durationMin;
@@ -92,13 +103,14 @@ public class Movie {
                 Objects.equals(name, movie.name) &&
                 Objects.equals(description, movie.description) &&
                 Objects.equals(language, movie.language) &&
-                Objects.equals(year, movie.year);
+                Objects.equals(year, movie.year) &&
+                Objects.equals(movieId, movie.movieId);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, description, language, year, durationMin);
+        return Objects.hash(id, name, description, language, year, durationMin, movieId);
     }
 
     @OneToMany(mappedBy = "movieByMovie")

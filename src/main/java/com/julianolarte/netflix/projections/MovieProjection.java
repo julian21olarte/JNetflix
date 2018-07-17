@@ -25,6 +25,9 @@ public interface MovieProjection {
     @Value("#{target.Movie.year}")
     String getYear();
 
+    @Value("#{target.Movie.movieId}")
+    String getMovieId();
+
     @Value("#{target.Movie.durationMin}")
     Long getDurationMin();
 

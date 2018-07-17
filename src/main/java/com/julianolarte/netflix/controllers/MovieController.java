@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class MovieController {
@@ -29,6 +30,11 @@ public class MovieController {
     @RequestMapping(value = "/movie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Movie> getMovies() {
         return this.movieRepository.findAll();
+    }
+
+    @RequestMapping(value = "/movieById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Movie> getMovieById(@RequestParam("movie") int movieId) {
+        return this.movieRepository.findById(movieId);
     }
 
     @RequestMapping(value = "/movieWithFavorite", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
