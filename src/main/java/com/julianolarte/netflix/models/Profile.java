@@ -12,9 +12,9 @@ import java.util.Objects;
 public class Profile {
     private int id;
     private String name;
-    private User userByUser;
-    private Collection<FavoriteMovie> favoriteMoviesById;
-    private Collection<ProfileMovie> profileMoviesById;
+    private User user;
+    private Collection<FavoriteMovie> favoriteMovies;
+    private Collection<ProfileMovie> profileMovies;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,33 +54,33 @@ public class Profile {
 
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
-    @JsonBackReference(value = "userByUser")
-    public User getUserByUser() {
-        return userByUser;
+    @JsonBackReference(value = "user")
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUser(User userByUser) {
-        this.userByUser = userByUser;
+    public void setUser(User userByUser) {
+        this.user = userByUser;
     }
 
-    @OneToMany(mappedBy = "profileByProfile")
+    @OneToMany(mappedBy = "profile")
     @JsonIgnore
-    public Collection<FavoriteMovie> getFavoriteMoviesById() {
-        return favoriteMoviesById;
+    public Collection<FavoriteMovie> getFavoriteMovies() {
+        return favoriteMovies;
     }
 
-    public void setFavoriteMoviesById(Collection<FavoriteMovie> favoriteMoviesById) {
-        this.favoriteMoviesById = favoriteMoviesById;
+    public void setFavoriteMovies(Collection<FavoriteMovie> favoriteMoviesById) {
+        this.favoriteMovies = favoriteMoviesById;
     }
 
-    @OneToMany(mappedBy = "profileByProfile")
-    @JsonManagedReference(value = "profileByProfile")
+    @OneToMany(mappedBy = "profile")
+    @JsonManagedReference(value = "profile")
     @JsonIgnore
-    public Collection<ProfileMovie> getProfileMoviesById() {
-        return profileMoviesById;
+    public Collection<ProfileMovie> getProfileMovies() {
+        return profileMovies;
     }
 
-    public void setProfileMoviesById(Collection<ProfileMovie> profileMoviesById) {
-        this.profileMoviesById = profileMoviesById;
+    public void setProfileMovies(Collection<ProfileMovie> profileMoviesById) {
+        this.profileMovies = profileMoviesById;
     }
 }

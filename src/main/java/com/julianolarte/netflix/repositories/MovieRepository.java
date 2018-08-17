@@ -28,10 +28,10 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
             "case when(fm.id is null) then false " +
             "else true end as favorite " +
         "from Movie m left join FavoriteMovie fm " +
-            "on m.id = fm.movieByMovie.id " +
-            "and fm.profileByProfile = :#{#profile} " +
-        "where m.genderByGender = :#{#gender}")
-    Iterable<MovieProjection> findByGenderByGender(@Param("gender") Gender gender, @Param("profile") Profile profile);
+            "on m.id = fm.movie.id " +
+            "and fm.profile = :#{#profile} " +
+        "where m.gender = :#{#gender}")
+    Iterable<MovieProjection> findByGender(@Param("gender") Gender gender, @Param("profile") Profile profile);
 
 
     /**
@@ -50,12 +50,12 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
             "case when(fm.id is null) then false " +
             "else true end as favorite " +
         "from Movie m inner join ProfileMovie pm " +
-            "on m = pm.movieByMovie " +
-            "and pm.profileByProfile = :#{#profile} " +
+            "on m = pm.movie " +
+            "and pm.profile = :#{#profile} " +
         "left join FavoriteMovie fm " +
-            "on m = fm.movieByMovie " +
-            "and fm.profileByProfile = :#{#profile}")
-    Iterable<MovieProjection> findByProfileMoviesById_ProfileByProfile(@Param("profile") Profile profile);
+            "on m = fm.movie " +
+            "and fm.profile = :#{#profile}")
+    Iterable<MovieProjection> findByProfile(@Param("profile") Profile profile);
 
 
     @Query(
@@ -63,7 +63,7 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
             "case when(fm.id is null) then false " +
             "else true end as favorite " +
         "from Movie m left join FavoriteMovie fm " +
-            "on m = fm.movieByMovie " +
-            "and fm.profileByProfile = :#{#profile}")
+            "on m = fm.movie " +
+            "and fm.profile = :#{#profile}")
     Iterable<MovieProjection> findAllWithFavoriteByProfile(@Param("profile") Profile profile);
 }

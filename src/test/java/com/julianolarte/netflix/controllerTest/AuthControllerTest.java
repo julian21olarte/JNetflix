@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
 
+import java.sql.Date;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -68,6 +70,43 @@ public class AuthControllerTest {
         this.mockMvc.perform(post("/login")
             .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void TestRegisterRoute() throws Exception {
+
+        User user = new User();
+        user.setEmail("emailnuevo@gmail.com");
+        user.setPassword("12345");
+        user.setBirthdate(new Date(23, 12, 2018));
+
+        // transform user object into json
+        String jsonUser = this.objectMapper.writeValueAsString(user);
+
+        this.mockMvc.perform(post("/register")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonUser))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.error").value(false));
+    }
+
+    @Test
+    public void TestRegisterRouteWithExistUser() throws Exception {
+
+        User user = new User();
+        user.setEmail("email@gmail.com");
+        user.setPassword("12345");
+
+        // transform user object into json
+        String jsonUser = this.objectMapper.writeValueAsString(user);
+
+        this.mockMvc.perform(post("/register")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonUser))
+                .andExpect(status().isConflict())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.error").value(true));
     }
 
 }

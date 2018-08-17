@@ -52,7 +52,7 @@ public class MovieRepositoryTest {
         System.out.println(user.getId());
         //save profile
         Profile profile = new Profile();
-        profile.setUserByUser(user);
+        profile.setUser(user);
         profile.setName("profile test");
         this.profileRepository.save(profile);
 
@@ -74,13 +74,13 @@ public class MovieRepositoryTest {
             movie.setDescription("Description Movie #" + i);
             movie.setDurationMin(120);
             movie.setLanguage("English");
-            movie.setGenderByGender(gender);
+            movie.setGender(gender);
             movie.setYear("2018");
             movieList.add(movie);
 
             profileMovie = new ProfileMovie();
-            profileMovie.setMovieByMovie(movie);
-            profileMovie.setProfileByProfile(profile);
+            profileMovie.setMovie(movie);
+            profileMovie.setProfile(profile);
             profileMovie.setWatchDate(date);
             listProfileMovie.add(profileMovie);
         }
@@ -116,7 +116,7 @@ public class MovieRepositoryTest {
         gender.setId(1);
         Profile profile = new Profile();
         profile.setId(1);
-        Iterable<MovieProjection> listMoviesByGender = this.movieRepository.findByGenderByGender(gender, profile);
+        Iterable<MovieProjection> listMoviesByGender = this.movieRepository.findByGender(gender, profile);
 
         assertThat(listMoviesByGender)
             .isNotNull();
@@ -129,7 +129,7 @@ public class MovieRepositoryTest {
     public void testFindByProfile() {
         Profile profile = new Profile();
         profile.setId(1);
-        Iterable<MovieProjection> listMovieByProfile = this.movieRepository.findByProfileMoviesById_ProfileByProfile(profile);
+        Iterable<MovieProjection> listMovieByProfile = this.movieRepository.findByProfile(profile);
 
         assertThat(listMovieByProfile)
                 .isNotNull();

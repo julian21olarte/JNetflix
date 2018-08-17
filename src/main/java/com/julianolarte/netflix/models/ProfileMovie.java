@@ -11,8 +11,8 @@ import java.util.Objects;
 public class ProfileMovie {
     private int id;
     private Date watchDate;
-    private Profile profileByProfile;
-    private Movie movieByMovie;
+    private Profile profile;
+    private Movie movie;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,24 +51,24 @@ public class ProfileMovie {
     }
 
     @ManyToOne
-    @JsonBackReference(value = "profileByProfile")
+    @JsonBackReference(value = "profile")
     @JoinColumn(name = "profile", referencedColumnName = "id", nullable = false)
-    public Profile getProfileByProfile() {
-        return profileByProfile;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setProfileByProfile(Profile profileByProfile) {
-        this.profileByProfile = profileByProfile;
+    public void setProfile(Profile profileByProfile) {
+        this.profile = profileByProfile;
     }
 
     @ManyToOne
-    @JsonBackReference(value = "movieByMovie")
+    @JsonBackReference(value = "movie")
     @JoinColumn(name = "movie", referencedColumnName = "id", nullable = false)
-    public Movie getMovieByMovie() {
-        return movieByMovie;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovieByMovie(Movie movieByMovie) {
-        this.movieByMovie = movieByMovie;
+    public void setMovie(Movie movieByMovie) {
+        this.movie = movieByMovie;
     }
 }

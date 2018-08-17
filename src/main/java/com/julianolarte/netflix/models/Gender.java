@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Gender {
     private int id;
     private String description;
-    //private Collection<Movie> moviesById;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,13 +44,4 @@ public class Gender {
 
         return Objects.hash(id, description);
     }
-
-    /*@OneToMany(mappedBy = "genderByGender")
-    public Collection<Movie> getMoviesById() {
-        return moviesById;
-    }
-
-    public void setMoviesById(Collection<Movie> moviesById) {
-        this.moviesById = moviesById;
-    }*/
 }

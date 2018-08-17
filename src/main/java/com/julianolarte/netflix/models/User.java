@@ -14,7 +14,7 @@ public class User {
     private String email;
     private String password;
     private Date birthdate;
-    private Collection<Profile> profilesById;
+    private Collection<Profile> profiles;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,14 +74,14 @@ public class User {
         return Objects.hash(id, email, password, birthdate);
     }
 
-    @OneToMany(mappedBy = "userByUser")
-    @JsonManagedReference(value = "userByUser")
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "user")
     @JsonProperty(value = "profiles")
-    public Collection<Profile> getProfilesById() {
-        return profilesById;
+    public Collection<Profile> getProfiles() {
+        return profiles;
     }
 
-    public void setProfilesById(Collection<Profile> profilesById) {
-        this.profilesById = profilesById;
+    public void setProfiles(Collection<Profile> profilesById) {
+        this.profiles = profilesById;
     }
 }

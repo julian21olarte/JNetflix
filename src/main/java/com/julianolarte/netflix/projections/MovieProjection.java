@@ -31,7 +31,7 @@ public interface MovieProjection {
     @Value("#{target.Movie.durationMin}")
     Long getDurationMin();
 
-    @Value("#{target.Movie.genderByGender}")
+    @Value("#{target.Movie.gender}")
     Gender getGender();
 
     @Value("#{target.favorite}")

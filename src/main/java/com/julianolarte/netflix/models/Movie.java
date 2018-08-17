@@ -1,6 +1,5 @@
 package com.julianolarte.netflix.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,9 +17,9 @@ public class Movie {
     private String year;
     private int durationMin;
     private String movieId;
-    private Collection<FavoriteMovie> favoriteMoviesById;
-    private Gender genderByGender;
-    private Collection<ProfileMovie> profileMoviesById;
+    private Collection<FavoriteMovie> favoriteMovies;
+    private Gender gender;
+    private Collection<ProfileMovie> profileMovies;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,35 +112,35 @@ public class Movie {
         return Objects.hash(id, name, description, language, year, durationMin, movieId);
     }
 
-    @OneToMany(mappedBy = "movieByMovie")
+    @OneToMany(mappedBy = "movie")
     @JsonIgnore
-    public Collection<FavoriteMovie> getFavoriteMoviesById() {
-        return favoriteMoviesById;
+    public Collection<FavoriteMovie> getFavoriteMovies() {
+        return favoriteMovies;
     }
 
-    public void setFavoriteMoviesById(Collection<FavoriteMovie> favoriteMoviesById) {
-        this.favoriteMoviesById = favoriteMoviesById;
+    public void setFavoriteMovies(Collection<FavoriteMovie> favoriteMoviesById) {
+        this.favoriteMovies = favoriteMoviesById;
     }
 
     @ManyToOne
     @JoinColumn(name = "gender", referencedColumnName = "id", nullable = false)
     @JsonProperty(value = "gender")
-    public Gender getGenderByGender() {
-        return genderByGender;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setGenderByGender(Gender genderByGender) {
-        this.genderByGender = genderByGender;
+    public void setGender(Gender genderByGender) {
+        this.gender = genderByGender;
     }
 
-    @OneToMany(mappedBy = "movieByMovie")
-    @JsonManagedReference(value = "movieByMovie")
+    @OneToMany(mappedBy = "movie")
+    @JsonManagedReference(value = "movie")
     @JsonIgnore
-    public Collection<ProfileMovie> getProfileMoviesById() {
-        return profileMoviesById;
+    public Collection<ProfileMovie> getProfileMovies() {
+        return profileMovies;
     }
 
-    public void setProfileMoviesById(Collection<ProfileMovie> profileMoviesById) {
-        this.profileMoviesById = profileMoviesById;
+    public void setProfileMovies(Collection<ProfileMovie> profileMoviesById) {
+        this.profileMovies = profileMoviesById;
     }
 }

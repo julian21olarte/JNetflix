@@ -61,7 +61,7 @@ public class MovieControllerTest {
 
         //save profile
         Profile profile = new Profile();
-        profile.setUserByUser(user);
+        profile.setUser(user);
         profile.setName("profile test");
         this.profileRepository.save(profile);
 
@@ -83,13 +83,13 @@ public class MovieControllerTest {
             movie.setDescription("Description Movie #" + i);
             movie.setDurationMin(120);
             movie.setLanguage("Espanish");
-            movie.setGenderByGender(gender);
+            movie.setGender(gender);
             movie.setYear("2018");
             movieList.add(movie);
 
             profileMovie = new ProfileMovie();
-            profileMovie.setMovieByMovie(movie);
-            profileMovie.setProfileByProfile(profile);
+            profileMovie.setMovie(movie);
+            profileMovie.setProfile(profile);
             profileMovie.setWatchDate(date);
             listProfileMovie.add(profileMovie);
         }

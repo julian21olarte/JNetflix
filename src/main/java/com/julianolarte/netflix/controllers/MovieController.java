@@ -62,7 +62,7 @@ public class MovieController {
 
         Profile profile = new Profile();
         profile.setId(profileId);
-        return this.movieRepository.findByGenderByGender(gender, profile);
+        return this.movieRepository.findByGender(gender, profile);
     }
 
     @RequestMapping(value = "/movieByProfile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +70,7 @@ public class MovieController {
         Profile profile = new Profile();
         profile.setId(profileId);
 
-        return this.movieRepository.findByProfileMoviesById_ProfileByProfile(profile);
+        return this.movieRepository.findByProfile(profile);
     }
 
 
@@ -78,11 +78,11 @@ public class MovieController {
     public ResponseEntity addFavoriteMovie(@RequestBody FavoriteMovie favoriteMovie) {
 
         Map<String, String> responseMap = new HashMap<>();
-        if(this.favoriteMovieRepository.existsByMovieByMovieAndProfileByProfile(favoriteMovie.getMovieByMovie(), favoriteMovie.getProfileByProfile())) {
+        if(this.favoriteMovieRepository.existsByMovieAndProfile(favoriteMovie.getMovie(), favoriteMovie.getProfile())) {
             this.favoriteMovieRepository
-                .deleteByProfileByProfileAndMovieByMovie(
-                    favoriteMovie.getProfileByProfile(),
-                    favoriteMovie.getMovieByMovie());
+                .deleteByProfileAndMovie(
+                    favoriteMovie.getProfile(),
+                    favoriteMovie.getMovie());
             responseMap.put("method", "DELETE");
         }
         else {

@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity register(@RequestBody User user ) throws JsonProcessingException {
+    public ResponseEntity register(@RequestBody User user) throws JsonProcessingException {
 
         Map<String, Object> responseMap = new HashMap<>();
         if(this.userRepository.existsByEmail(user.getEmail())) {
@@ -44,6 +44,7 @@ public class AuthController {
         responseMap.put("user", this.objectMapper.writeValueAsString(this.userRepository.save(user)));
         responseMap.put("error", false);
         responseMap.put("message", "Usuario registrado correctamente.");
+        System.out.println(responseMap);
         return new ResponseEntity(responseMap, HttpStatus.OK);
     }
 }

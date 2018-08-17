@@ -9,8 +9,8 @@ import java.util.Objects;
 @Table(name = "favorite_movie", schema = "jnetflix")
 public class FavoriteMovie {
     private int id;
-    private Profile profileByProfile;
-    private Movie movieByMovie;
+    private Profile profile;
+    private Movie movie;
 
     @Id
     @Column(name = "id")
@@ -39,22 +39,22 @@ public class FavoriteMovie {
     @ManyToOne
     @JoinColumn(name = "profile", referencedColumnName = "id", nullable = false)
     @JsonProperty(value = "profile")
-    public Profile getProfileByProfile() {
-        return profileByProfile;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setProfileByProfile(Profile profileByProfile) {
-        this.profileByProfile = profileByProfile;
+    public void setProfile(Profile profileByProfile) {
+        this.profile = profileByProfile;
     }
 
     @ManyToOne
     @JoinColumn(name = "movie", referencedColumnName = "id", nullable = false)
     @JsonProperty(value = "movie")
-    public Movie getMovieByMovie() {
-        return movieByMovie;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovieByMovie(Movie movieByMovie) {
-        this.movieByMovie = movieByMovie;
+    public void setMovie(Movie movieByMovie) {
+        this.movie = movieByMovie;
     }
 }

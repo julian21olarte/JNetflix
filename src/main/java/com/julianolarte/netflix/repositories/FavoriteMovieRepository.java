@@ -8,8 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import javax.transaction.Transactional;
 
 public interface FavoriteMovieRepository extends CrudRepository<FavoriteMovie, Long> {
-    boolean existsByMovieByMovieAndProfileByProfile(Movie movieByMovie, Profile profileByProfile);
+    boolean existsByMovieAndProfile(Movie movieByMovie, Profile profileByProfile);
 
     @Transactional
-    void deleteByProfileByProfileAndMovieByMovie(Profile profile, Movie movie);
+    void deleteByProfileAndMovie(Profile profile, Movie movie);
 }
